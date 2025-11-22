@@ -57,6 +57,8 @@ JWT_SECRET=your_jwt_secret
 
 
 
+
+
    🧠 Future Improvements
 
 🗂️ Group chats & media sharing
@@ -66,6 +68,14 @@ JWT_SECRET=your_jwt_secret
 ✉️ Message delivery/read receipts
 
 🕵️‍♀️ User profile customization
+
+1. Sign up Page
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/070c20fb-c0ba-46ad-81d7-390da860ddd5" />
+
+2. Login Page
+   <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/9118db07-e49d-4eca-8188-c0256c42ee1c" />
+
 
 
 🤝 Contributing
