@@ -1,6 +1,9 @@
 import cloudinary from "../lib/cloudinary.js";
 import Message from "../models/messageModel.js";
 import User from "../models/userModel.js";
+
+import { getRecieverSocketId,io } from "../lib/socket.js";
+
 export const getUsersForSidebar = async(req,res)=>{
     try {
         const loggedInUserId = req.user._id;
@@ -8,7 +11,7 @@ export const getUsersForSidebar = async(req,res)=>{
 
         res.status(200).json(filteredUsers);
     } catch (error) {
-        console.log("Error in getUsersForSidebar")
+        console.log("Error in getUsersForSidebar",error.message)
         res.status(500).json({error:"Internal server error"})
     }
 }
@@ -41,6 +44,7 @@ export const sendMessage = async(req,res) =>{
      let imageUrl;
 
      if(image){
+        // Upload base64 image to cloudinary
         const uploadResponse = await cloudinary.uploader.upload(image);
         imageUrl = uploadResponse.secure_url;
      }
@@ -53,6 +57,11 @@ export const sendMessage = async(req,res) =>{
      })
 
      await newMessage.save();
+
+     const recieverSocketId = getRecieverSocketId(recieverId);
+     if(recieverSocketId) {
+        io.to(recieverSocketId).emit("newMessage",newMessage)
+     }
      // todo : realtime functinalyt goes here => socket.io
 
      res.status(201).json(newMessage)
